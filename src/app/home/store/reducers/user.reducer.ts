@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as UserActions from '../actions/user.actions';
-//import { loadUsers, loadUsersSuccess, loadUsersFailure, updateUser, updateUserSuccess, updateUserFailure } from '../actions/user.actions';
 import { User } from '../models/user.model';
 
 export interface UserState {
@@ -22,7 +21,7 @@ export const userReducer = createReducer(
   on(UserActions.loadUsersSuccess, (state, { users }) => ({ ...state, users, loading: false })),
   on(UserActions.loadUsersFailure, (state, { error }) => ({ ...state, error, loading: false })),
 
-  // Update Entire User (PUT)
+  // Update Entire User
   on(UserActions.updateUser, state => ({ ...state, loading: true })),
   on(UserActions.updateUserSuccess, (state, { user }) => ({
     ...state,
@@ -31,7 +30,7 @@ export const userReducer = createReducer(
   })),
   on(UserActions.updateUserFailure, (state, { error }) => ({ ...state, error, loading: false })),
 
-  // Partially Update User (PATCH)
+  // Partially Update User
   on(UserActions.patchUser, state => ({ ...state, loading: true })),
   on(UserActions.patchUserSuccess, (state, { user }) => ({
     ...state,

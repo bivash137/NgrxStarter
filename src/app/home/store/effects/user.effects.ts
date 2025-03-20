@@ -21,7 +21,7 @@ export class UserEffects {
     )
   );
 
-  // Update Entire User (PUT)
+  // Update Entire User
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.updateUser),
@@ -34,7 +34,7 @@ export class UserEffects {
     )
   );
 
-  // Partially Update User (PATCH)
+  // Partially Update User
   patchUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.patchUser),

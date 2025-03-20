@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Save user updates
+  // Save updates in user data for a row
   saveUser(id: number) {
     if (!this.userForms[id]) return;
     const updatedUser = { ...this.userForms[id].value, id };

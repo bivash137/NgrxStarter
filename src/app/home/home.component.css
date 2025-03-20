@@ -1,17 +1,14 @@
-/* Container Styling */
 .container {
   width: 80%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
 }
 
-/* Header */
 h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Loading & Error Messages */
 .loading {
   text-align: center;
   font-size: 18px;
@@ -28,7 +25,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -39,16 +35,15 @@ table {
 
 th, td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #878282;
   text-align: left;
 }
 
 th {
-  background-color: #f4f4f4;
+  background-color: #ccc5c5;
   font-weight: bold;
 }
 
-/* Input Fields */
 input {
   width: 90%;
   padding: 5px;
@@ -57,27 +52,20 @@ input {
   border-radius: 4px;
 }
 
-/* Buttons */
 button {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  color: rgb(255, 255, 255);
   margin: 5px;
 }
 
 .edit-btn {
-  background: #5C76B7; /* Blue */
+  background: #1b64f6;
 }
 
 .save-btn {
-  background: #28a745; /* Green */
-}
-
-/* Save Button Loading State */
-button:disabled {
-  background: gray;
-  cursor: not-allowed;
+  background: #198332;
 }
