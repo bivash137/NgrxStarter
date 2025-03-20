@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>User List</h2>
+    <!-- Loading Indicator -->
+    <div *ngIf="loading$ | async" class="loading">Loading users...</div>
+    <!-- Error Message -->
+    <div *ngIf="error$ | async as error" class="error">{{ error }}</div>
+
+    <table *ngIf="!(loading$ | async) && !(error$ | async)">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <!-- Name -->
+          <ng-container *ngIf="editUserId !== user.id; else editName">
+            <td>{{ user.name }}</td>
+          </ng-container>
+          <ng-template #editName>
+            <td><input type="text" [formControl]="getFormControl(user.id, 'name')"></td>
+          </ng-template>
+          <!-- Username -->
+          <ng-container *ngIf="editUserId !== user.id; else editUsername">
+            <td>{{ user.username }}</td>
+          </ng-container>
+          <ng-template #editUsername>
+            <td><input type="text" [formControl]="getFormControl(user.id, 'username')"></td>
+          </ng-template>
+          <!-- Email -->
+          <ng-container *ngIf="editUserId !== user.id; else editEmail">
+            <td>{{ user.email }}</td>
+          </ng-container>
+          <ng-template #editEmail>
+            <td><input type="text" [formControl]="getFormControl(user.id, 'email')"></td>
+          </ng-template>
+          <!-- Actions -->
+          <td>
+            <button class="edit-btn" (click)="editUser(user.id)">
+              {{ editUserId === user.id ? 'Cancel' : 'Edit' }}
+            </button>
+            <button class="save-btn" *ngIf="editUserId === user.id" (click)="saveUser(user.id)">Save</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
