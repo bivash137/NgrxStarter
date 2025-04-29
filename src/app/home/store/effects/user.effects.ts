@@ -46,4 +46,17 @@ export class UserEffects {
       )
     )
   );
+
+  // Bulk Update Users
+  bulkUpdateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.bulkUpdateUsers),
+      mergeMap(({users}) =>
+        this.userService.bulkUpdateUsers(users).pipe(
+          map(updatedUser => UserActions.bulkUpdateUserSuccess({ users: updatedUser })),
+          catchError(error => of(UserActions.bulkUpdateUserFailure({ error: error.message })))
+        )
+      )
+    )
+  );
 }

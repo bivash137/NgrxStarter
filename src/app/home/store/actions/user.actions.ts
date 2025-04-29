@@ -15,3 +15,9 @@ export const updateUserFailure = createAction('[User] Update User Failure', prop
 export const patchUser = createAction('[User] Patch User', props<{ id: number; changes: Partial<User> }>());
 export const patchUserSuccess = createAction('[User] Patch User Success', props<{ user: User }>());
 export const patchUserFailure = createAction('[User] Patch User Failure', props<{ error: string }>());
+
+
+// Bulk Update User
+export const bulkUpdateUsers = createAction('[User] Bulk Update Users', props<{ users: User[] }>());
+export const bulkUpdateUserSuccess = createAction('[User] Bulk Update User Success', props<{ users: User[] }>());
+export const bulkUpdateUserFailure = createAction('[User] Bulk Update User Failure', props<{ error: any }>());

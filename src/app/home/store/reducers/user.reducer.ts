@@ -37,5 +37,11 @@ export const userReducer = createReducer(
     users: state.users.map(u => (u.id === user.id ? user : u)),
     loading: false
   })),
-  on(UserActions.patchUserFailure, (state, { error }) => ({ ...state, error, loading: false }))
+  on(UserActions.patchUserFailure, (state, { error }) => ({ ...state, error, loading: false })),
+
+  //bulk update the user
+  on(UserActions.bulkUpdateUsers, (state, { users }) => {
+    console.log('Users to Bulk Update:', users);
+    return { ...state, users, loading: false };
+  })
 );

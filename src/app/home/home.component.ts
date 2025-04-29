@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from './store/models/user.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { loadUsers, updateUser, patchUser } from './store/actions/user.actions';
+import { loadUsers, updateUser, patchUser, bulkUpdateUsers } from './store/actions/user.actions';
 import { selectUsers, selectLoading, selectError } from './store/selectors/user.selectors';
 import { UserService } from '../services/user.service';
 
@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   originalUserData: { [key: number]: User } = {}; // Store original user data
   loading$ = this.store.select(selectLoading);
   error$ = this.store.select(selectError);
+  bulkEditMode = false;
 
   constructor(private store: Store, private userService: UserService) {}
 
@@ -86,5 +87,30 @@ export class HomeComponent implements OnInit {
   
     this.originalUserData[id] = { ...updatedUser };
     this.editUserId = null;
+  }
+
+  toggleBulkEditMode(){
+    this.bulkEditMode = !this.bulkEditMode;
+    if (!this.bulkEditMode) {
+      // Reset all forms when bulk edit is canceled
+      this.users.forEach(user => {
+        this.userForms[user.id].reset({
+          name: this.originalUserData[user.id].name,
+          username: this.originalUserData[user.id].username,
+          email: this.originalUserData[user.id].email,
+        });
+      });
+    }
+  }
+  saveAll(){
+    console.log(this.users);
+    const updatedUsers: User[] = this.users.map(user=>{
+      const id =  user.id;
+      const form = this.userForms[id];
+      return {...form.value, id}
+    });
+    this.store.dispatch(bulkUpdateUsers({users: updatedUsers}))
+    console.log(updatedUsers);
+    this.bulkEditMode = false
   }
 }

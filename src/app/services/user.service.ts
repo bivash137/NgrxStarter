@@ -30,4 +30,9 @@ export class UserService {
   patchUser(id: number, partialData: Partial<User>): Observable<User> {
     return this.http.patch<User>(`${this.apiUrl}/${id}`, partialData);
   }
+
+  bulkUpdateUsers(users: User[]): Observable<User[]> {
+    console.log(users)
+    return this.http.post<User[]>(`${this.apiUrl}`, users)
+  }
 }

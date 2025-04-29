@@ -1,5 +1,13 @@
 <div class="container">
     <h2>User List</h2>
+
+    <!-- Bulk Edit -->
+    <button (click)="toggleBulkEditMode()" class="bluk-edit-btn">
+       {{bulkEditMode ? 'Cancel Bulk Edit' : 'Bulk Edit'}}
+    </button>
+    <button *ngIf="bulkEditMode" (click)="saveAll()"  class="bluk-edit-btn">
+      Save All
+    </button>
     <!-- Loading Indicator -->
     <div *ngIf="loading$ | async" class="loading">Loading users...</div>
     <!-- Error Message -->
@@ -19,33 +27,34 @@
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
           <!-- Name -->
-          <ng-container *ngIf="editUserId !== user.id; else editName">
+          <ng-container *ngIf="!bulkEditMode && editUserId!== user.id; else editName">
             <td>{{ user.name }}</td>
           </ng-container>
           <ng-template #editName>
             <td><input type="text" [formControl]="getFormControl(user.id, 'name')"></td>
           </ng-template>
           <!-- Username -->
-          <ng-container *ngIf="editUserId !== user.id; else editUsername">
+          <ng-container *ngIf="!bulkEditMode && editUserId !== user.id; else editUsername">
             <td>{{ user.username }}</td>
           </ng-container>
           <ng-template #editUsername>
             <td><input type="text" [formControl]="getFormControl(user.id, 'username')"></td>
           </ng-template>
           <!-- Email -->
-          <ng-container *ngIf="editUserId !== user.id; else editEmail">
+          <ng-container *ngIf="!bulkEditMode && editUserId !== user.id; else editEmail">
             <td>{{ user.email }}</td>
           </ng-container>
           <ng-template #editEmail>
             <td><input type="text" [formControl]="getFormControl(user.id, 'email')"></td>
           </ng-template>
           <!-- Actions -->
-          <td>
+          <td *ngIf="!bulkEditMode">
             <button class="edit-btn" (click)="editUser(user.id)">
               {{ editUserId === user.id ? 'Cancel' : 'Edit' }}
             </button>
             <button class="save-btn" *ngIf="editUserId === user.id" (click)="saveUser(user.id)">Save</button>
           </td>
+          <td *ngIf="bulkEditMode">Bulk Edit</td>
         </tr>
       </tbody>
     </table>
